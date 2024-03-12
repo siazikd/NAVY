@@ -23,3 +23,8 @@ class NeuralNetwork:
             self.hidden_layer.backward(hidden_delta, lr)
 
         return output
+    
+    
+    def predict(self, inputs):
+        hidden_output = self.hidden_layer.forward(inputs)
+        return self.output_layer.forward(hidden_output)

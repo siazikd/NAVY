@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Perceptron:
-    def __init__(self, w=None, b=None, fn: function = np.sign):
+    def __init__(self, w=None, b=None, fn = np.sign):
         self.w = np.random.rand(2) if w is None else w # Inicializace vah
         self.b = np.random.rand()  if b is None else b # Inicializace biasu
         self.fn = fn # Aktivacni funkce
