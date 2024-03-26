@@ -5,10 +5,10 @@ import tkinter as tk
 class QLearn:
     def __init__(self, actions, epsilon=0.1, alpha=0.2, gamma=0.9):
         self.q = {} 
-        self.epsilon = epsilon 
-        self.alpha = alpha 
-        self.gamma = gamma 
-        self.actions = actions 
+        self.epsilon = epsilon # exploration constant
+        self.alpha = alpha  
+        self.gamma = gamma  
+        self.actions = actions  
 
     def getQ(self, state, action):
         return self.q.get((state, action), 0.0) 
@@ -76,7 +76,7 @@ def main():
     canvas = tk.Canvas(root, width=maze_size*20, height=maze_size*20)
     canvas.pack()
 
-    num_episodes = 10000
+    num_episodes = 15_000
     for episode in range(num_episodes):
         mouse_position = (random.randint(0, maze_size-1), random.randint(0, maze_size-1)) 
 
