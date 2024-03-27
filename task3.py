@@ -41,7 +41,7 @@ class HopfieldNetwork2D:
                 
                 weighted_matrix = np.outer(new_pattern_vec, pattern_vec) # vynásobíme nový vzor a vektor a uložíme do matice
                 
-                accumulated_weights += weighted_matrix
+                accumulated_weights += weighted_matrix # přičteme váhy do akumulovaných vah
 
         self.weights += accumulated_weights
         

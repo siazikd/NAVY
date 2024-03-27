@@ -18,13 +18,13 @@ class QLearn:
         if oldv is None: # pokud neexistuje, tak se vytvori
             self.q[(state, action)] = reward
         else: # jinak se upravi hodnota Q
-            self.q[(state, action)] = oldv + self.alpha * (value - oldv) 
+            self.q[(state, action)] = oldv + self.alpha * (value - oldv) # vypočita se jako stará hodnota + learning rate * (nová hodnota - stará hodnota)
 
     def chooseAction(self, state):
         if random.random() < self.epsilon: # pokud je nahodne cislo mensi nez epsilon, tak se vybere nahodna akce
             action = random.choice(self.actions)
         else: # jinak se vybere akce s nejvetsi hodnotou Q
-            q = [self.getQ(state, a) for a in self.actions] 
+            q = [self.getQ(state, a) for a in self.actions] # najde se hodnota Q pro kazdou akci
             maxQ = max(q) 
             count = q.count(maxQ) 
             if count > 1:  # pokud je vice akci s nejvetsi hodnotou Q, tak se vybere nahodna z techto akci
@@ -76,7 +76,7 @@ def main():
     canvas = tk.Canvas(root, width=maze_size*20, height=maze_size*20)
     canvas.pack()
 
-    num_episodes = 15_000
+    num_episodes = 5_000
     for episode in range(num_episodes):
         mouse_position = (random.randint(0, maze_size-1), random.randint(0, maze_size-1)) 
 

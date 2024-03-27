@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 6 - L-systems</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas'); // Get the canvas element
+        const ctx = canvas.getContext('2d'); // Get the context of the canvas element
+
+        const axiom = 'F'; 
+        const rules = {
+            'F': 'FF+[+F-F-F]-[-F+F+F]',
+        };
+        const angle = Math.PI/7 * 180 / Math.PI; 
+        const length = 8;
+        const initialAngle = 0; 
+
+        function generateLSystem(axiom, rules, iterations) { // Method to generate L-system
+            let result = axiom; // Initial string
+            for (let i = 0; i < iterations; i++) { // Loop through iterations
+                let nextResult = ''; // Result after applying rules
+                for (let j = 0; j < result.length; j++) { // Loop through characters in current result
+                    const currentChar = result[j]; // Current character
+                    if (rules[currentChar]) { // If character has a rule, apply it
+                        nextResult += rules[currentChar]; // Apply rule
+                    } else { // If no rule, keep the character unchanged
+                        nextResult += currentChar;
+                    } 
+                }
+                result = nextResult; // Update result for next iteration
+            }
+            return result;
+        }
+
+        function drawLSystem(lsystem, angle, length, initialAngle) {
+            let x = canvas.width / 2; // Initial x coordinate
+            let y = canvas.height / 2; // Initial y coordinate
+            let currentAngle = initialAngle; // Current angle
+
+            ctx.beginPath(); // Begin drawing
+            ctx.moveTo(x, y); // Move to initial position
+
+            const stack = []; // Stack to store positions and angles
+
+            for (let i = 0; i < lsystem.length; i++) { // Loop through characters in L-system
+                const currentChar = lsystem[i]; // Current character
+                switch (currentChar) { // Action based on character
+                    case 'F': // Move forward and draw
+                        const newX = x + length * Math.cos(currentAngle * Math.PI / 180);
+                        const newY = y + length * Math.sin(currentAngle * Math.PI / 180);
+                        ctx.lineTo(newX, newY);
+                        x = newX;
+                        y = newY;
+                        break;
+                    case 'b': // Move forward without drawing
+                        x += length * Math.cos(currentAngle * Math.PI / 180);
+                        y += length * Math.sin(currentAngle * Math.PI / 180);
+                        break;
+                    case '+': // Turn right
+                        currentAngle += angle;
+                        break;
+                    case '-': // Turn left
+                        currentAngle -= angle;
+                        break;
+                    case '[': // Push current state to stack
+                        stack.push({ x, y, angle: currentAngle });
+                        break;
+                    case ']': // Pop state from stack
+                        const state = stack.pop();
+                        if (state) {
+                            x = state.x;
+                            y = state.y;
+                            currentAngle = state.angle;
+                            ctx.moveTo(x, y); // Move to the new position without drawing
+                        }
+                        break;
+                }
+            }
+
+            ctx.stroke(); // Draw the lines
+        }
+
+        const iterations = 3; // Number of iterations
+        const lsystem = generateLSystem(axiom, rules, iterations);
+        drawLSystem(lsystem, angle, length, initialAngle);
+    </script>
+</body>
+</html>
