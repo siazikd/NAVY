@@ -19,10 +19,11 @@
 
         const axiom = 'F'; 
         const rules = {
-            'F': 'FF+[+F-F-F]-[-F+F+F]',
+             //'F': 'F[+FF][-FF]F[-F][+F]F',
+            'F': 'FF+[+F-F-F]-[-F+F+F]'
         };
-        const angle = Math.PI/7 * 180 / Math.PI; 
-        const length = 8;
+        const angle = Math.PI/8 * 180 / Math.PI; 
+        const length = 4;
         const initialAngle = 0; 
 
         function generateLSystem(axiom, rules, iterations) { // Method to generate L-system
@@ -52,6 +53,7 @@
 
             const stack = []; // Stack to store positions and angles
 
+            console.log(lsystem)
             for (let i = 0; i < lsystem.length; i++) { // Loop through characters in L-system
                 const currentChar = lsystem[i]; // Current character
                 switch (currentChar) { // Action based on character
@@ -62,10 +64,7 @@
                         x = newX;
                         y = newY;
                         break;
-                    case 'b': // Move forward without drawing
-                        x += length * Math.cos(currentAngle * Math.PI / 180);
-                        y += length * Math.sin(currentAngle * Math.PI / 180);
-                        break;
+                    
                     case '+': // Turn right
                         currentAngle += angle;
                         break;
