@@ -11,13 +11,14 @@ def mandelbrot(c, max_iter):
     return max_iter
 
 def plot_mandelbrot(x_min, x_max, y_min, y_max, width, height, max_iter):
-    image = np.zeros((height, width, 4))  # Create a 3D array
-    for i, x in enumerate(np.linspace(x_min, x_max, width)):
-        for j, y in enumerate(np.linspace(y_min, y_max, height)):
-            c = x + y * 1j
+    image = np.zeros((height, width, 4)) # 4 for RGBA
+    for i, x in enumerate(np.linspace(x_min, x_max, width)): # i is index, x is value
+        for j, y in enumerate(np.linspace(y_min, y_max, height)): # j is index, y is value
+            c = x + y + 1j 
             iteration = mandelbrot(c, max_iter)
             hue = iteration / max_iter
-            color = plt.cm.viridis(hue)  # Use viridis colormap for better color mapping
+            # use some nice map, but dont use viridis, try red, yellow etc
+            color = plt.cm.plasma(hue)
             image[j, i] = color
     plt.imshow(image)
     plt.axis('off')  # Turn off axis
@@ -28,7 +29,7 @@ def plot_mandelbrot(x_min, x_max, y_min, y_max, width, height, max_iter):
 x_min, x_max = -2, 1
 y_min, y_max = -1, 1
 width, height = 800, 800
-max_iter = 100
+max_iter = 40
 
 
 plot_mandelbrot(x_min, x_max, y_min, y_max, width, height, max_iter)
