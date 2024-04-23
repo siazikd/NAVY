@@ -47,8 +47,8 @@ def plot_landscapes(landscapes):
 # Define landscapes
 landscapes = [
     (fractal_landscape(4, 10, 2, 6), 'brown'),
-    (fractal_landscape(4, 10, 0.5, 0), 'yellow'),
-    (fractal_landscape(3, 10, 1, -7), 'green')
+    (fractal_landscape(8, 10, 0.5, 0), 'yellow'),
+    (fractal_landscape(12, 10, 1, -7), 'green')
 ]
 
 # Plot all landscapes
