@@ -8,21 +8,21 @@ def fractal_landscape(iterations, length, height_variation, start_y):
     for _ in range(iterations):  # Provede se tolikrát, kolik je iterací
         new_landscape = [] 
         for i in range(len(landscape) - 1):
-            start_x, start_y = landscape[i] 
-            end_x, end_y = landscape[i + 1] 
+            start_x, start_y = landscape[i] # Začátek úsečky
+            end_x, end_y = landscape[i + 1]  # Konec úsečky
             
-            mid_x = (start_x + end_x) / 2  
+            mid_x = (start_x + end_x) / 2  # Střed úsečky
             mid_y = (start_y + end_y) / 2
             
-            if np.random.rand() < 0.5: 
+            if np.random.rand() < 0.5: # Náhodně se zvýší nebo sníží výška
                 mid_y += np.random.uniform(-height_variation, height_variation)
             else:
                 mid_y -= np.random.uniform(-height_variation, height_variation)
             
-            new_landscape.append((start_x, start_y)) 
-            new_landscape.append((mid_x, mid_y))
+            new_landscape.append((start_x, start_y)) # Přidá se začátek úsečky
+            new_landscape.append((mid_x, mid_y)) # Přidá se střed úsečky
             
-            if i == len(landscape) - 2:  
+            if i == len(landscape) - 2: # Pokud jsme na konci, přidá se i konec úsečky
                 new_landscape.append((end_x, end_y))
         
         landscape = new_landscape
