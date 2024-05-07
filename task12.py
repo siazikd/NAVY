@@ -65,7 +65,7 @@ img.set_cmap(cmap)
 
 # Update the forest state in each frame
 ani = animation.FuncAnimation(fig, update_forest, fargs=(img, forest, forest_size),
-                              frames=200, interval=50, blit=True)
+                              frames=30, interval=20, blit=True)
 
 plt.title('Forest Fire Simulation')
 plt.show()
