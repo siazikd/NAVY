@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from matplotlib.colors import LinearSegmentedColormap
+from matplotlib import colors
 
 # Define the forest size
 forest_size = 100
@@ -54,11 +54,11 @@ def update_forest(frameNum, img, forest, forest_size):
 
 # Create a figure and axis
 fig, ax = plt.subplots()
-img = ax.imshow(forest, cmap='viridis', interpolation='nearest')
+cmap = colors.ListedColormap(['green', 'brown', 'red', 'black'])
+bounds = [0, 1, 2, 3, 4]
+norm = colors.BoundaryNorm(bounds, cmap.N)
+img = ax.imshow(forest, cmap=cmap, norm=norm, interpolation='nearest')
 
-# Define custom colors for grass, trees, fire, and burnt areas
-colors = [(0, 0.5, 0), (0.5, 0.25, 0), (1, 0.5, 0), (0, 0, 0)]
-cmap = LinearSegmentedColormap.from_list('forest_colors', colors)
 
 # Update the colormap
 img.set_cmap(cmap)

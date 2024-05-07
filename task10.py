@@ -50,7 +50,7 @@ for i, a in enumerate(a_values):
     y_train[i, :, 0] = x[transitions:]
 
 # Train the model
-model.fit(x_train, y_train, epochs=50, verbose=0, batch_size=32, validation_split=0.2)
+model.fit(x_train, y_train, epochs=5, verbose=1, batch_size=32, validation_split=0.2)
 
 # 4. Predict the logistic map point by point
 x_pred = np.linspace(0, 4.0, 1000)  # Values of 'a' for prediction
